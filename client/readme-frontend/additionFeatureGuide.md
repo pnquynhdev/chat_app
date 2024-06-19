@@ -1,0 +1,6 @@
+- Update _personal information_. upload profile image: https://youtu.be/qdZYHbg72WQ?list=PL7_SWnUdwHkBY9BINVkCMDwDgLTP8gZlQ&t=2824
+- file frontend structure:
+    - useState, useEffect
+    - useContext
+    - reactHooks
+    - return

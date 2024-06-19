@@ -131,7 +131,7 @@ function Chat() {
         >
           <IoImageOutline style={{ width: "2em", height: "2em" }} />
         </button>
-        <textarea
+        <input
           className="flex items-center w-full outline-0 bg-white text-black p-4 max-h-24"
           contentEditable="true"
           tabIndex={0}
@@ -140,7 +140,6 @@ function Chat() {
           autoCorrect="off"
           autoCapitalize="off"
           placeholder="Type your message here..."
-          te
         />
 
         <button

@@ -1,28 +1,29 @@
 import React from "react";
 import Logo from "../components/Logo";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
-    <div className="md:max-2xl:flex mx-auto">
+    <div className="mx-auto">
       <div className="relative">
         <Logo />
         <div className="flex-1 absolute top-5 right-5 md:top-8 md:right-8">
           <button className="inline-block mr-5 md:mr-5">
-            <a
+            <Link
               className="py-1 px-6 bg-gray-50 hover:bg-gray-200  text-sm md:text-xl  text-gray-900 font-bold rounded-xl transition duration-200"
-              href="#"
+              to="/signin"
             >
               Sign In
-            </a>
+            </Link>
           </button>
 
           <button className="inline-block">
-            <a
+            <Link
               className="py-1 px-6 bg-blue-500 hover:bg-blue-600 text-sm md:text-xl text-white font-bold rounded-xl transition duration-200"
-              href="#"
+              to="/signup"
             >
               Sign up
-            </a>
+            </Link>
           </button>
         </div>
       </div>

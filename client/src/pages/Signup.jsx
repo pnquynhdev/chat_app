@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import useSignup from "../hooks/useSignup";
 
 function Signup() {
+  const [inputs, setInputs] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const { loading, signup } = useSignup();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    signup(inputs);
+  };
   return (
     <div className="hero">
       <div className="hero-content text-center bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-90 border border-gray-100">
         <div className="mt-6 text-center">
           <h1 className="text-5xl font-bold">Sign Up</h1>
 
-          <form className="card-body mt-6">
+          <form className="card-body mt-6" onSubmit={handleSubmit}>
             <div className="form-control ">
               <label className="input input-bordered flex items-center gap-2">
                 <svg
@@ -22,7 +36,10 @@ function Signup() {
                   type="text"
                   className="grow"
                   placeholder="Username"
-                  required
+                  value={inputs.username}
+                  onChange={(e) =>
+                    setInputs({ ...inputs, username: e.target.value })
+                  }
                 />
               </label>
             </div>
@@ -43,6 +60,10 @@ function Signup() {
                   className="grow "
                   placeholder="Email"
                   required
+                  value={inputs.email}
+                  onChange={(e) =>
+                    setInputs({ ...inputs, email: e.target.value })
+                  }
                 />
               </label>
             </div>
@@ -65,6 +86,10 @@ function Signup() {
                   type="password"
                   className="grow"
                   placeholder="Password"
+                  value={inputs.password}
+                  onChange={(e) =>
+                    setInputs({ ...inputs, password: e.target.value })
+                  }
                 />
               </label>
             </div>
@@ -87,18 +112,28 @@ function Signup() {
                   type="password"
                   className="grow"
                   placeholder="Confirm Password"
+                  value={inputs.confirmPassword}
+                  onChange={(e) =>
+                    setInputs({ ...inputs, confirmPassword: e.target.value })
+                  }
                 />
               </label>
             </div>
 
             <div className="form-control mt-4">
-              <button className="btn btn-info">Sign Up</button>
+              <button className="btn btn-info" disabled={loading}>
+                {loading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Sign Up"
+                )}
+              </button>
             </div>
 
             <div className="label mt-4 justify-center">
               Have an account?
               <button className="btn btn-link">
-                <a href="#">Login</a>
+                <Link to="/login">Login</Link>
               </button>
             </div>
           </form>

@@ -4,12 +4,19 @@ import cors from "cors";
 import connectToMongoDB from "./database/connectToMongoDB.js";
 import authRoutes from "./routes/authRoutes.js";
 import ExpressError from "./utils/ExpressError.js";
+import userRoutes from "./routes/userRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
+import groupRoutes from "./routes/groupRoutes.js";
 
 const app = express();
 config();
 
 app.use(json());
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin:"http://localhost:3000",
+}
+));
 
 const PORT = process.env.PORT || 5000;
 
@@ -18,13 +25,16 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/message", messageRoutes);
+app.use("/api/group", groupRoutes);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page Not Found", 404));
 });
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500, message = "Something went wrong" } = err;
+  const { statusCode = 500, message = "Internal server error" } = err;
   res.status(statusCode).send(message);
 });
 
@@ -33,3 +43,4 @@ app.listen(PORT, (req, res) => {
   console.log(`Server running  on port: ${PORT}`);
 });
 
+// CONTINUTE SEARCH FOR GROUP SCHEMA, CREATE GROUP, UPDATE GROUP

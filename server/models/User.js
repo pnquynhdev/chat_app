@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    username: { type: String, unique: true},
+    username: { type: String, unique: true, default: "" },
   },
   { timestamps: true }
 );

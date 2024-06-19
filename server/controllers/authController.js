@@ -8,13 +8,12 @@ import ExpressError from "../utils/ExpressError.js";
 
 // **signup** function with error handling using catchAsync
 export const signup = catchAsync(async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  const { username = "", email, password, confirmPassword } = req.body;
 
   // **Password Confirmation Check**
   if (password !== confirmPassword) {
     throw new ExpressError("Passwords don't match", 400);
   }
-
   // **Existing User Check**
   let existingUserQuery;
   if (username !== "") {
@@ -28,7 +27,7 @@ export const signup = catchAsync(async (req, res) => {
     for (const user of existingUser) {
       if (user.email === email) {
         throw new ExpressError(`Email "${email}" already exists`, 400);
-      } else if (user.username === username) {
+      } else {
         throw new ExpressError(`Username "${username}" already exists`, 400);
       }
     }
@@ -54,7 +53,7 @@ export const signup = catchAsync(async (req, res) => {
       _id: newUser._id,
       username: newUser.username,
       email: newUser.email,
-    });
+    }); // Responds with user's ID, username, and email (excluding password).
   } else {
     throw new ExpressError("Invalid user data", 400);
   }
@@ -88,3 +87,6 @@ export const logout = catchAsync(async (req, res) => {
   res.cookie("jwt", "", { maxAge: 0 }); // Set the JWT cookie to expire immediately
   res.status(200).json({ message: "Logged out successfully" });
 });
+
+// FUTURE
+export const isOnline = catchAsync(async (req, res) => {});
