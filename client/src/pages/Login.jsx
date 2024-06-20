@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../hooks/useLogin";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { loading, login } = useLogin();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(email, password);
+   
+  };
   return (
     <div className="hero">
       <div className="hero-content text-center bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-90 border border-gray-100">
         <div className="mt-6">
           <h1 className="text-5xl font-bold text-center">Login</h1>
 
-          <form className="card-body mt-6">
+          <form className="card-body mt-6" onSubmit={handleSubmit}>
             <div className="form-control ">
               <label className="input input-bordered flex items-center gap-2">
                 <svg
@@ -25,6 +36,8 @@ function Login() {
                   className="grow "
                   placeholder="Email"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </label>
             </div>
@@ -47,6 +60,8 @@ function Login() {
                   type="password"
                   className="grow"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
             </div>
@@ -58,7 +73,13 @@ function Login() {
             </label>
 
             <div className="form-control mt-4">
-              <button className="btn btn-info">Login</button>
+              <button className="btn btn-info" >
+                {loading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Login"
+                )}
+              </button>
             </div>
 
             <div className="label mt-4 justify-center">
